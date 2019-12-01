@@ -67,7 +67,7 @@ public class Exercise3Test extends PetDomainForKata
         Assert.assertEquals(Integer.valueOf(1), petTypeCounts.get(PetType.BIRD));
 
         // Hint: use the appropriate method on this.people to create a Bag<PetType>
-        Bag<PetType> counts = null;
+        Bag<PetType> counts = petTypes.toBag();
         Assert.assertEquals(2, counts.occurrencesOf(PetType.CAT));
         Assert.assertEquals(2, counts.occurrencesOf(PetType.DOG));
         Assert.assertEquals(2, counts.occurrencesOf(PetType.HAMSTER));

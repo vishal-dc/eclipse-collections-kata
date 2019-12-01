@@ -19,52 +19,53 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * In the slides leading up to this exercise you should have learned about the following APIs.
+ * In the slides leading up to this exercise you should have learned about the
+ * following APIs.
  * <p/>
  * {@link MutableList#collect(Function)}<br>
  * {@link MutableList#select(Predicate)}<br>
  *
- * @see <a href="http://eclipse.github.io/eclipse-collections-kata/pet-kata/#/2">Exercise 1 Slides</a>
+ * @see <a href=
+ *      "http://eclipse.github.io/eclipse-collections-kata/pet-kata/#/2">Exercise
+ *      1 Slides</a>
  */
-public class Exercise1Test extends PetDomainForKata
-{
-    @Test
-    public void getFirstNamesOfAllPeople()
-    {
-        // Replace null, with a transformation method on MutableList.
-        MutableList<String> firstNames = null; // this.people...
+public class Exercise1Test extends PetDomainForKata {
+	@Test
+	public void getFirstNamesOfAllPeople() {
+		// Replace null, with a transformation method on MutableList.
+		MutableList<String> firstNames = this.people.collect(Person::getFirstName);
 
-        MutableList<String> expectedFirstNames = Lists.mutable.with("Mary", "Bob", "Ted", "Jake", "Barry", "Terry", "Harry", "John");
-        Assert.assertEquals(expectedFirstNames, firstNames);
-    }
+		MutableList<String> expectedFirstNames = Lists.mutable.with("Mary", "Bob", "Ted", "Jake", "Barry", "Terry",
+				"Harry", "John");
+		Assert.assertEquals(expectedFirstNames, firstNames);
+	}
 
-    @Test
-    public void getNamesOfMarySmithsPets()
-    {
-        Person person = this.getPersonNamed("Mary Smith");
-        MutableList<Pet> pets = person.getPets();
+	@Test
+	public void getNamesOfMarySmithsPets() {
+		Person person = this.getPersonNamed("Mary Smith");
+		MutableList<Pet> pets = person.getPets();
 
-        // Replace null, with a transformation method on MutableList.
-        MutableList<String> names = null; // pets...
+		// Replace null, with a transformation method on MutableList.
+		MutableList<String> names = pets.collect(Pet::getName);
 
-        Assert.assertEquals("Tabby", names.makeString());
-    }
+		Assert.assertEquals("Tabby", names.makeString());
+	}
 
-    @Test
-    public void getPeopleWithCats()
-    {
-        // Replace null, with a positive filtering method on MutableList.
-        MutableList<Person> peopleWithCats = null;  // this.people...
+	@Test
+	public void getPeopleWithCats() {
+		// Replace null, with a positive filtering method on MutableList.
+		
+		MutableList<Person> peopleWithCats = this.people.selectWith(Person::hasPet, PetType.CAT);
 
-        Verify.assertSize(2, peopleWithCats);
-    }
+		Verify.assertSize(2, peopleWithCats);
+	}
 
-    @Test
-    public void getPeopleWithoutCats()
-    {
-        // Replace null, with a negative filtering method on MutableList.
-        MutableList<Person> peopleWithoutCats = null;  // this.people...
+	@Test
+	public void getPeopleWithoutCats() {
+		// Replace null, with a negative filtering method on MutableList.
+		
+		MutableList<Person> peopleWithoutCats = this.people.select(p -> !p.hasPet(PetType.CAT));
 
-        Verify.assertSize(6, peopleWithoutCats);
-    }
+		Verify.assertSize(6, peopleWithoutCats);
+	}
 }
